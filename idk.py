@@ -16,7 +16,10 @@ cursor = ""
 
 def smart_sleep():
     wait = 9 + random.uniform(-2, 2)  # 7–11 sec
-    print(f"Sleeping {wait:.2f}s")
+    if oldest_match:
+        server, dt = oldest_match
+        print(f"\n[CURRENT OLDEST SERVER] ID: {server.get('id')} | updated: {dt} | players: {server.get('playing')}/{server.get('maxPlayers')}")
+    print(f"Sleeping {wait:.2f}s...")
     time.sleep(wait)
 
 while True:
@@ -59,9 +62,10 @@ while True:
 
     smart_sleep()
 
+# final result
 if oldest_match:
     server, dt = oldest_match
-    print("\n=== RESULT ===")
+    print("\n=== FINAL OLDEST SERVER ===")
     print("Oldest server ID:", server.get("id"))
     print("Updated:", dt)
     print("Players:", server.get("playing"), "/", server.get("maxPlayers"))
